@@ -6,6 +6,7 @@ set autoindent          " auto indenting
 
 set number relativenumber
 set nu rnu
+set noequalalways
 
 colorscheme monokai     " colorscheme desert
 set nobackup            " get rid of anoying ~file

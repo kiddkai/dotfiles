@@ -1,4 +1,5 @@
 local fn = vim.fn
+
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
     packer_bootstrap = fn.system({
@@ -145,9 +146,9 @@ return require("packer").startup(function()
         config = function()
             require("null-ls").setup({
                 sources = {
-                    require("null-ls").builtins.diagnostics.eslint,
+                    -- require("null-ls").builtins.diagnostics.eslint,
                     require("null-ls").builtins.completion.spell,
-                    require("null-ls").builtins.formatting.prettierd,
+                    -- require("null-ls").builtins.formatting.prettierd,
                 },
                 -- you can reuse a shared lspconfig on_attach callback here
                 on_attach = function(client, bufnr)
@@ -167,7 +168,16 @@ return require("packer").startup(function()
         end,
     })
 
+    use({
+        'renerocksai/telekasten.nvim',
+        config = function()
+            require('config.note')
+        end
+    })
+
     if packer_bootstrap then
         require("packer").sync()
     end
+
+    -- note
 end)

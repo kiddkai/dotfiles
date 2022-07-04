@@ -166,29 +166,3 @@ Hydra({
     }
 })
 
-local hint_window = [[
- _v_: vertical split     _s_: horizontal split
- ^
- ^
- ^ ^             _q_: exit
-]]
-
-Hydra({
-    name = "Window",
-    hint = hint_window,
-    mode = "n",
-    body = "<C-w>",
-    heads = {
-        { 'v', cmd("vsplit") },
-        { 's', cmd("hsplit") },
-        { "q", nil, { exit = true, nowait = true } },
-    },
-	config = {
-		color = "teal",
-		invoke_on_body = true,
-		hint = {
-			position = "bottom",
-			border = "rounded",
-		},
-    }
-})

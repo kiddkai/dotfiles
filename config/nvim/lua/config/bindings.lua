@@ -9,5 +9,6 @@ end
 
 map("n", "<C-b>", "<cmd>Telescope buffers<cr>")
 map("n", "<C-o>", "<cmd>Telescope find_files<cr>")
-map("n", "<Tab>", "<cmd>:NvimTreeFindFileToggle<cr>")
+map("n", "<Tab>", "<cmd>NvimTreeFindFileToggle<cr>")
+map("n", "z", "<cmd>Telekasten panel<cr>")
 
