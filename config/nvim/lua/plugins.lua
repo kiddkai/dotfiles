@@ -146,9 +146,10 @@ return require("packer").startup(function()
         config = function()
             require("null-ls").setup({
                 sources = {
-                    -- require("null-ls").builtins.diagnostics.eslint,
                     require("null-ls").builtins.completion.spell,
-                    -- require("null-ls").builtins.formatting.prettierd,
+                    require('null-ls').builtins.diagnostics.eslint,
+                    require('null-ls').builtins.code_actions.eslint,
+                    require('null-ls').builtins.formatting.eslint
                 },
                 -- you can reuse a shared lspconfig on_attach callback here
                 on_attach = function(client, bufnr)

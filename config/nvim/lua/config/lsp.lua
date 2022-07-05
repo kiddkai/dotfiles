@@ -83,10 +83,12 @@ require("lspconfig")["pyright"].setup({
     capabilities = capabilities,
 })
 
-require("lspconfig").eslint.setup({})
+-- require("lspconfig").eslint.setup({})
 
 require("lspconfig")["tsserver"].setup({
-    on_attach = on_attach,
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false
+    end,
     flags = lsp_flags,
     capabilities = capabilities,
 })
