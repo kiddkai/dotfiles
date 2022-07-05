@@ -7,11 +7,14 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 
 mkdir -p $HOME/.config
 
+
 echo 'tmux nvim karabiner' | tr ' ' '\n' | \
     while read conf; do
         echo "linking $conf"
         ln -s "$SCRIPTPATH/config/$conf" "$HOME/.config/$conf"
     done
+
+npm i --location=global vscode-langservers-extracted
 
 echo "done"
 
