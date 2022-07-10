@@ -19,5 +19,10 @@ npm i --location=global vscode-langservers-extracted
 
 defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HOME/.config/hammerspoon/init.lua"
 
+# setup nvm default packages
+# see: https://github.com/nvm-sh/nvm#default-global-packages-from-file-while-installing
+echo "Linking nvm default packages"
+ln -s "$SCRIPTPATH/config/nvm/default-packages" "$HOME/.nvm/default-packages"
+
 echo "done"
 

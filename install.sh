@@ -19,6 +19,8 @@ function install_or_upgrade_cask {
 install_or_upgrade fd
 install_or_upgrade stylua
 install_or_upgrade ripgrep
+install_or_upgrade nvm
+install_or_upgrade zig
 
 install_or_upgrade_cask hammerspoon
 install_or_upgrade_cask karabiner-elements
