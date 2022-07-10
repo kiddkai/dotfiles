@@ -8,7 +8,7 @@ function map(mode, keyBinding, command, opts)
 end
 
 map("n", "<C-b>", "<cmd>Telescope buffers<cr>")
-map("n", "<C-o>", "<cmd>Telescope find_files<cr>")
+map("n", "<C-p>", "<cmd>Telescope find_files<cr>")
 map("n", "<Tab>", "<cmd>NvimTreeFindFileToggle<cr>")
-map("n", "z", "<cmd>Telekasten panel<cr>")
+map("n", "Z", "<cmd>Telekasten panel<cr>")
 

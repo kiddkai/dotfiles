@@ -14,7 +14,7 @@ end
 
 vim.cmd([[packadd packer.nvim]])
 
-return require("packer").startup(function()
+return require("packer").startup(function(use)
     -- util libs
     use("nvim-lua/plenary.nvim")
 
@@ -34,7 +34,38 @@ return require("packer").startup(function()
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
+        config = function()
+            require'nvim-treesitter.configs'.setup {
+              -- A list of parser names, or "all"
+              ensure_installed = { "c", "lua", "rust" },
+
+              -- Install parsers synchronously (only applied to `ensure_installed`)
+              sync_install = false,
+
+              -- List of parsers to ignore installing (for "all")
+              ignore_install = { "javascript" },
+
+              highlight = {
+                -- `false` will disable the whole extension
+                enable = true,
+
+                -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+                -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+                -- the name of the parser)
+                -- list of language that will be disabled
+                disable = { "c", "rust" },
+
+                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                -- Using this option may slow down your editor, and you may see some duplicate highlights.
+                -- Instead of true it can also be a list of languages
+                additional_vim_regex_highlighting = false,
+              },
+            }
+        end
     })
+
+    use({ 'maxxnino/tree-sitter-zig' })
 
     use({
         "lukas-reineke/indent-blankline.nvim",
@@ -123,6 +154,12 @@ return require("packer").startup(function()
         end,
     })
 
+    use({ 'hrsh7th/vim-vsnip' });
+    use({ 'hrsh7th/vim-vsnip-integ' });
+    use({ 'hrsh7th/cmp-vsnip' });
+
+    
+
     -- lspconfig
     use({
         "neovim/nvim-lspconfig",
@@ -147,20 +184,32 @@ return require("packer").startup(function()
             require("null-ls").setup({
                 sources = {
                     require("null-ls").builtins.completion.spell,
-                    require('null-ls').builtins.diagnostics.eslint,
-                    require('null-ls').builtins.code_actions.eslint,
-                    require('null-ls').builtins.formatting.eslint
+                    require('null-ls').builtins.diagnostics.eslint_d,
+                    require('null-ls').builtins.code_actions.eslint_d,
+                    require('null-ls').builtins.formatting.eslint_d,
+                    require('null-ls').builtins.formatting.zigfmt
                 },
                 -- you can reuse a shared lspconfig on_attach callback here
                 on_attach = function(client, bufnr)
-                    if client.supports_method("textDocument/formatting") then
+                    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+                    -- vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                    -- vim.api.nvim_create_autocmd("BufWritePre", {
+                    --     group = augroup,
+                    --     buffer = bufnr,
+                    --     callback = function()
+                    --         -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                    --         vim.lsp.buf.formatting_sync(nil, 100000)
+                    --     end,
+                    -- })
+
+                    if client.supports_method("textDocument/formatting") or client.name == 'zls' then
                         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             group = augroup,
                             buffer = bufnr,
                             callback = function()
                                 -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-                                vim.lsp.buf.formatting_sync({ timeout_ms = 2000 })
+                                vim.lsp.buf.formatting_sync(nil, 100000)
                             end,
                         })
                     end

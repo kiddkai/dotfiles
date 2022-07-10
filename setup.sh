@@ -8,13 +8,16 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 mkdir -p $HOME/.config
 
 
-echo 'tmux nvim karabiner' | tr ' ' '\n' | \
+echo 'tmux nvim karabiner hammerspoon' | tr ' ' '\n' | \
     while read conf; do
         echo "linking $conf"
         ln -s "$SCRIPTPATH/config/$conf" "$HOME/.config/$conf"
     done
 
 npm i --location=global vscode-langservers-extracted
+
+
+defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HOME/.config/hammerspoon/init.lua"
 
 echo "done"
 
