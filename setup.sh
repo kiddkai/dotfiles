@@ -14,7 +14,7 @@ echo 'tmux nvim karabiner hammerspoon' | tr ' ' '\n' | \
         ln -s "$SCRIPTPATH/config/$conf" "$HOME/.config/$conf"
     done
 
-npm i --location=global vscode-langservers-extracted
+npm i --location=global vscode-langservers-extracted bash-language-server
 
 
 defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HOME/.config/hammerspoon/init.lua"

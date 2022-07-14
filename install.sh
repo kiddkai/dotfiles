@@ -21,6 +21,8 @@ install_or_upgrade stylua
 install_or_upgrade ripgrep
 install_or_upgrade nvm
 install_or_upgrade zig
+install_or_upgrade shfmt
+install_or_upgrade shellcheck
 
 install_or_upgrade_cask hammerspoon
 install_or_upgrade_cask karabiner-elements

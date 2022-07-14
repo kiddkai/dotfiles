@@ -30,6 +30,13 @@ return require("packer").startup(function(use)
 			require("nvim-tree").setup({
 				filters = {
 					dotfiles = true,
+					exclude = {
+						".git",
+						"dist",
+						"out",
+						"build",
+						"node_modules",
+					},
 				},
 			})
 		end,
@@ -196,22 +203,23 @@ return require("packer").startup(function(use)
 					require("null-ls").builtins.formatting.eslint_d,
 					require("null-ls").builtins.formatting.zigfmt,
 					require("null-ls").builtins.formatting.stylua,
+					require("null-ls").builtins.code_actions.shellcheck,
+					require("null-ls").builtins.diagnostics.shellcheck,
+					require("null-ls").builtins.formatting.shfmt,
 				},
 				-- you can reuse a shared lspconfig on_attach callback here
 				on_attach = function(client, bufnr)
 					local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-					if client.supports_method("textDocument/formatting") or client.name == "zls" then
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = augroup,
-							buffer = bufnr,
-							callback = function()
-								-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-								vim.lsp.buf.formatting_sync(nil, 100000)
-							end,
-						})
-					end
+					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						group = augroup,
+						buffer = bufnr,
+						callback = function()
+							-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+							vim.lsp.buf.formatting_sync(nil, 100000)
+						end,
+					})
 				end,
 			})
 		end,
