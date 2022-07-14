@@ -124,3 +124,11 @@ require("lspconfig").zls.setup({
 	flags = lsp_flags,
 	capabilities = capabilities,
 })
+
+require("lspconfig").bashls.setup({
+	on_attach = function(client)
+		client.resolved_capabilities.document_formatting = false
+	end,
+	flags = lsp_flags,
+	capabilities = capabilities,
+})
