@@ -9,7 +9,7 @@ set number relativenumber
 set nu rnu
 set noequalalways
 
-colorscheme monokai     " colorscheme desert
+colorscheme shades_of_purple     " colorscheme desert
 set nobackup            " get rid of anoying ~file
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 
