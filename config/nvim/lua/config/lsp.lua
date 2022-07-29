@@ -78,7 +78,9 @@ require("lspconfig")["pyright"].setup({
 
 require("lspconfig")["tsserver"].setup({
 	on_attach = function(client)
-		client.resolved_capabilities.document_formatting = false
+		if client.name == "tsserver" then
+			client.resolved_capabilities.document_formatting = false
+		end
 	end,
 	flags = lsp_flags,
 	capabilities = capabilities,
@@ -131,4 +133,20 @@ require("lspconfig").bashls.setup({
 	end,
 	flags = lsp_flags,
 	capabilities = capabilities,
+})
+
+require("lspconfig").sourcekit.setup({
+	on_attach = function(client)
+		client.resolved_capabilities.document_formatting = false
+	end,
+	flags = lsp_flags,
+	capabilities = capabilities,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*node_modules*",
+	group = group,
+	callback = function(args)
+		vim.diagnostic.disable(args.buf)
+	end,
 })

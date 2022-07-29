@@ -210,9 +210,10 @@ return require("packer").startup(function(use)
 			require("null-ls").setup({
 				sources = {
 					require("null-ls").builtins.completion.spell,
-					require("null-ls").builtins.diagnostics.eslint_d,
-					require("null-ls").builtins.code_actions.eslint_d,
-					require("null-ls").builtins.formatting.eslint_d,
+					require("null-ls").builtins.diagnostics.eslint,
+					require("null-ls").builtins.code_actions.eslint,
+					require("null-ls").builtins.formatting.prettier,
+					require("null-ls").builtins.formatting.eslint,
 					require("null-ls").builtins.formatting.zigfmt,
 					require("null-ls").builtins.formatting.stylua,
 					require("null-ls").builtins.code_actions.shellcheck,
@@ -238,11 +239,49 @@ return require("packer").startup(function(use)
 	})
 
 	use({
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			require("lsp_lines").setup()
+			vim.diagnostic.config({
+				virtual_text = false,
+			})
+		end,
+	})
+
+	use({
 		"renerocksai/telekasten.nvim",
 		config = function()
 			require("config.note")
 		end,
 	})
+
+	use({ "catppuccin/nvim", as = "catppuccin" })
+
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "v2.*",
+		config = function()
+			require("config.term")
+		end,
+	})
+
+	use({
+		"akinsho/bufferline.nvim",
+		tag = "v2.*",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("bufferline").setup({})
+		end,
+	})
+
+	use({
+		"mfussenegger/nvim-dap",
+		config = function()
+			require("config.dap").setup({})
+		end,
+	})
+
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
 	if packer_bootstrap then
 		require("packer").sync()

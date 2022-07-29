@@ -9,14 +9,21 @@ set number relativenumber
 set nu rnu
 set noequalalways
 
-colorscheme shades_of_purple     " colorscheme desert
+
 set nobackup            " get rid of anoying ~file
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 set clipboard+=unnamedplus
+set mouse=a
 
 lua require('plugins')
 lua require('config.bindings')
+
+let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
+lua << EOF
+require("catppuccin").setup()
+EOF
+colorscheme catppuccin
 
 " vim-vsnip
 " Jump forward or backward

@@ -215,14 +215,14 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "right_shift_pressed_count",
+                                        "name": "left_shift_pressed_count",
                                         "type": "variable_if",
                                         "value": 1
                                     }
                                 ],
                                 "description": "if left shift double clicked, run super 0",
                                 "from": {
-                                    "key_code": "right_shift",
+                                    "key_code": "left_shift",
                                     "modifiers": {
                                         "optional": [
                                             "any"
@@ -236,7 +236,7 @@
                                             "left_control",
                                             "left_option",
                                             "left_command",
-                                            "right_shift"
+                                            "left_shift"
                                         ]
                                     }
                                 ],
@@ -245,7 +245,7 @@
                             {
                                 "description": "left shift double click state setter",
                                 "from": {
-                                    "key_code": "right_shift",
+                                    "key_code": "left_shift",
                                     "modifiers": {
                                         "optional": [
                                             "any"
@@ -255,19 +255,19 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "right_shift_pressed_count",
+                                            "name": "left_shift_pressed_count",
                                             "value": 1
                                         }
                                     },
                                     {
-                                        "key_code": "right_shift"
+                                        "key_code": "left_shift"
                                     }
                                 ],
                                 "to_delayed_action": {
                                     "to_if_canceled": [
                                         {
                                             "set_variable": {
-                                                "name": "right_shift_pressed_count",
+                                                "name": "left_shift_pressed_count",
                                                 "value": 0
                                             }
                                         }
@@ -275,7 +275,7 @@
                                     "to_if_invoked": [
                                         {
                                             "set_variable": {
-                                                "name": "right_shift_pressed_count",
+                                                "name": "left_shift_pressed_count",
                                                 "value": 0
                                             }
                                         }
